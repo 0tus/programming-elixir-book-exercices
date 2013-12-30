@@ -17,20 +17,12 @@ defmodule MyList do
   end
 
   def max(list), do: _max(list, nil)
-  defp _max([], nil) do
-    nil
-  end
-  defp _max([head | tail], nil) do
-    _max(tail, head)
-  end
-  defp _max([], ongoing_max) do
-    ongoing_max
-  end
+  defp _max([], nil), do: nil
+  defp _max([head | tail], nil), do: _max(tail, head)
+  defp _max([], ongoing_max), do: ongoing_max
   defp _max([head  | tail], ongoing_max) when head > ongoing_max do
     _max(tail, head)
   end
-  defp _max([_head | tail], ongoing_max) do
-    _max(tail, ongoing_max)
-  end
+  defp _max([_head | tail], ongoing_max), do: _max(tail, ongoing_max)
 end
 

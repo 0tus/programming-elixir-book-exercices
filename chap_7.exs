@@ -25,5 +25,27 @@ defmodule MyList do
     _max(tail, head)
   end
   defp _max([_head | tail], ongoing_max), do: _max(tail, ongoing_max)
+
+  # TODO: check if it is possible to put a closured variable in guard clauses
+  # here: z instead of 122
+  #[z | _] = 'z'
+
+  def caesar(list, n), do: _caesar(list, n, length(list), [])
+  # Fail
+  def _caesar([head | _tail], n, len, _acc) when head + n > 122 do
+    interogation_points = fn(_x, acc) -> '?' ++ acc end
+    add_smiley = fn(x) -> x ++ ' :)' end
+    1..len
+      |> Enum.reduce([], interogation_points)
+      |> add_smiley.()
+  end
+  # Last element
+  def _caesar([], _n, _len, acc), do: Enum.reverse(acc)
+  # Regular case
+  def _caesar([head | tail], n, len, acc) do
+    _caesar(tail, n, len, [head + n | acc])
+  end
+
 end
 
+'abcdzsdffdsdf' |> MyList.caesar(5) |> IO.puts

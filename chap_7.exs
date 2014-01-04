@@ -3,6 +3,7 @@ defmodule MyList do
   def len([]), do: 0
   def len([_head | tail]), do: 1 + len(tail)
 
+  # Tail call optimization
   def len2(list), do: _len2(list, 0)
   defp _len2([], acc), do: acc
   defp _len2([_head | tail], acc), do: _len2(tail, acc + 1)

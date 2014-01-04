@@ -27,7 +27,7 @@ defmodule MyList do
   end
   defp _max([_head | tail], ongoing_max), do: _max(tail, ongoing_max)
 
-  # TODO: check if it is possible to put a closured variable in guard clauses
+  # TODO: check if possible to put a variable in guard clauses
   # here: z instead of 122
   #[z | _] = 'z'
 

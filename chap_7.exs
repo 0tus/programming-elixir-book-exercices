@@ -69,4 +69,21 @@ defmodule MyList do
     _flatten tail, [head | acc], rest
   end
 
+
+  def list_to_string list do "[" <> _list_to_string(list, "") <> "]" end
+  # \/ Last iteration
+  defp _list_to_string [], acc do acc end
+  # \/ Head is a list
+  defp _list_to_string([head | tail], acc)
+  when is_list(head) do
+    separator = if Enum.empty?(tail), do: "", else: ", "
+    sub_list = "[" <> _list_to_string(head, "") <> "]"
+    _list_to_string tail, acc <> sub_list <> separator
+  end
+  # \/ Head is a value
+  defp _list_to_string [head | tail], acc do
+    separator = if Enum.empty?(tail), do: "", else: ", "
+    _list_to_string tail, acc <> to_string(head) <> separator
+  end
+
 end

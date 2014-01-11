@@ -48,4 +48,25 @@ defmodule MyList do
     _caesar tail, n, len, [head + n | acc]
   end
 
+
+  def flatten list do
+    _flatten(list, [] , []) |> Enum.reverse
+  end
+  # \/ Process the rest if not empty
+  defp _flatten([], acc, rest = [rest_head | rest_tail])
+  when length(rest) !== 0 do
+    _flatten rest_head, acc, rest_tail
+  end
+  # \/ Last iteration
+  defp _flatten [], acc, [] do acc end
+  # \/ Head is a list => enter it
+  defp _flatten([head | tail], acc, rest)
+  when is_list head do
+    _flatten head, acc, [tail | rest]
+  end
+  # \/ Head is a value => keep it and continue
+  defp _flatten [head | tail], acc, rest do
+    _flatten tail, [head | acc], rest
+  end
+
 end

@@ -49,5 +49,3 @@ defmodule MyList do
   end
 
 end
-
-'abcdzsdffdsdf' |> MyList.caesar(5) |> IO.puts

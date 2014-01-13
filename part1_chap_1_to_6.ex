@@ -12,7 +12,7 @@ defmodule Factorial do
   def _optim(n, acc), do: _optim(n - 1, acc * n)
 end
 
-Factorial.normal 200000
+# Factorial.normal 200000
 # Factorial.optim 200000
 
 
@@ -21,25 +21,25 @@ Factorial.normal 200000
 # Modules
 ################################################################################
 
-# defmodule Times do
-#   def double(n) do
-#     n * 2
-#   end
-#   def me do
-#     IO.puts "Dam"
-#   end
-# end
+defmodule Times do
+  def double(n) do
+    n * 2
+  end
+  def me do
+    IO.puts "Dam"
+  end
+end
 
 
 ################################################################################
 # Map
 ################################################################################
-# list = [1, 2, 3, 4, 5]
+list = [1, 2, 3, 4, 5]
 
-# map_func = fn elem -> elem * 2 end
+map_func = fn elem -> elem * 2 end
 
 # # Same function
-# map_func2 = &1 * 2
+map_func2 = &1 * 2
 
 # result = Enum.map list, map_func
 
@@ -50,11 +50,11 @@ Factorial.normal 200000
 # Closures
 ################################################################################
 
-# prefix = fn
-#   title -> fn
-#     string -> "#{title} #{string}"
-#   end
-# end
+prefix = fn
+  title -> fn
+    string -> "#{title} #{string}"
+  end
+end
 
 # mrs = prefix.("Mrs")
 
@@ -64,16 +64,16 @@ Factorial.normal 200000
 # FizzBuzz
 ################################################################################
 
-# test = fn
-#   0, 0, _ -> "FizzBuzz"
-#   0, _, _ -> "Fizz"
-#   _, 0, _ -> "Buzz"
-#   _, _, c -> c
-# end
+test = fn
+  0, 0, _ -> "FizzBuzz"
+  0, _, _ -> "Fizz"
+  _, 0, _ -> "Buzz"
+  _, _, c -> c
+end
 
-# test2 = fn
-#   int -> test.(rem(int, 3), rem(int, 5), int)
-# end
+test2 = fn
+  int -> test.(rem(int, 3), rem(int, 5), int)
+end
 
 # IO.puts "#{test2.(10)}"
 # IO.puts "#{test2.(11)}"

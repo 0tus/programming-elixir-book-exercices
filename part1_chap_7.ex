@@ -86,4 +86,15 @@ defmodule MyList do
     _list_to_string tail, acc <> to_string(head) <> separator
   end
 
+
+  def all? [] do true end
+  # \/
+  def all?([head | _tail])
+  when nil?(head)
+  or   head === false do
+    false
+  end
+  # \/
+  def all? [_head | tail] do all? tail end
+
 end

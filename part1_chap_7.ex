@@ -97,4 +97,25 @@ defmodule MyList do
   # \/
   def all? [_head | tail] do all? tail end
 
+
+  def each collection, func do _each Enum.to_list(collection), func end
+  # \/
+  defp _each [], _func do :ok end
+  # \/
+  defp _each [head | tail], func do
+    func.(head)
+    _each tail, func
+  end
+
+  def each2 collection, func do _each2 collection, func, 0, length(collection) end
+  # \/
+  defp _each2(_collection, _func, index, length)
+  when index >= length do :ok end
+  # \/
+  defp _each2 collection, func, index, length do
+    func.(Enum.at collection, index)
+    _each2 collection, func, index + 1, length
+  end
+
+
 end

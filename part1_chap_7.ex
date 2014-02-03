@@ -91,7 +91,7 @@ defmodule MyList do
   # \/
   def all?([head | _tail])
   when nil?(head)
-  or   head === false do
+  when head === false do
     false
   end
   # \/

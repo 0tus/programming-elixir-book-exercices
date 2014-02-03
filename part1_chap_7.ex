@@ -118,4 +118,15 @@ defmodule MyList do
   end
 
 
+  def filter collection, func do _filter Enum.to_list(collection), func, [] end
+  # \/ Last iteration
+  defp _filter [], _func, acc do Enum.reverse acc end
+  # \/ Test head value with the callback
+  defp _filter [head | tail], func, acc do
+    case func.(head) do
+      true -> _filter tail, func, [head | acc]
+      _    -> _filter tail, func, acc
+    end
+  end
+
 end

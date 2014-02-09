@@ -129,4 +129,20 @@ defmodule MyList do
     end
   end
 
+
+  def split collection, size do _split 0, size, [], Enum.to_list(collection) end
+  # \/ Reached end of collection before reaching size
+  defp _split _index, _size, nose, [] do
+    { Enum.reverse(nose), [] }
+  end
+  # \/ Last iteration
+  defp _split(index, size, nose, tail)
+  when index === size do
+    { Enum.reverse(nose), tail }
+  end
+  #\/ Iteration
+  defp _split index, size, nose, [head | tail] do
+    _split index + 1, size, [head | nose], tail
+  end
+
 end

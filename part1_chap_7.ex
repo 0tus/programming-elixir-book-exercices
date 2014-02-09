@@ -145,4 +145,20 @@ defmodule MyList do
     _split index + 1, size, [head | nose], tail
   end
 
+
+  def take collection, size do _take collection, size, 0, [] end
+  # \/ Return accumulator if collection is empty, whatever the index is
+  defp _take [], _size, _index, acc do
+    acc |> Enum.reverse
+  end
+  # \/ Last iteration
+  defp _take(_collection, size, index, acc)
+  when index === size do
+    acc |> Enum.reverse
+  end
+  # \/ Iteration
+  defp _take [head | tail], size, index, acc do
+    _take tail, size, index + 1, [head | acc]
+  end
+
 end

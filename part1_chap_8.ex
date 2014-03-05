@@ -1,5 +1,18 @@
 defmodule CharList do
 
+  defmodule Utils do
+    # `power` function for integers. :math.pow returns float
+    # Integers are arbitrary sized. Floats aren't
+    def int_pow num, pow do _int_pow num, pow, 1 end
+    # \/
+    defp _int_pow _num, 0, acc do acc end
+    # \/
+    defp _int_pow num, pow, acc do
+      _int_pow num, pow - 1, acc * num
+    end
+  end
+
+
   # Last iteration
   def only_ascii? [] do true end
   # \/ Letter is in the ASCII range => continue
@@ -10,5 +23,33 @@ defmodule CharList do
   end
   # \/ Character list contains a non ASCII character => sorry...
   def only_ascii? _character_list do false end
+
+
+  # Easy test: strings length
+  def anagram?(clist1, clist2)
+  when length(clist1) !== length(clist2) do
+    false
+  end
+  # \/
+  def anagram? clist1, clist2 do _anagram? clist1, clist2, 0, 0 end
+  # ~ \/
+  defp _anagram? [], [], hash1, hash2 do
+    IO.puts hash1
+    IO.puts hash2
+    hash1 == hash2
+  end
+  # ~ \/
+  defp _anagram? [letter1 | tail1], [letter2 | tail2], hash1, hash2 do
+    max_letters_per_word = 100
+
+    # TODO: find a way to do the downcase
+    # letter1 = String.downcase letter1
+    # letter2 = String.downcase letter2
+
+    increment1 = Utils.int_pow max_letters_per_word, (letter1 - ?a)
+    increment2 = Utils.int_pow max_letters_per_word, (letter2 - ?a)
+
+    _anagram? tail1, tail2, hash1 + increment1, hash2 + increment2
+  end
 
 end

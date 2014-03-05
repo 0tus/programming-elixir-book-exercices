@@ -161,4 +161,16 @@ defmodule MyList do
     _take tail, size, index + 1, [head | acc]
   end
 
+
+  def span from, to do _span from, to, [] end
+  # \/ Last iteration
+  defp _span(i, max, acc)
+  when i === max do
+    Enum.reverse [i | acc]
+  end
+  # \/ Regular iteration
+  defp _span i, max, acc do
+    _span i + 1, max, [i | acc]
+  end
+
 end

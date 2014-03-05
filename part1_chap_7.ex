@@ -173,4 +173,29 @@ defmodule MyList do
     _span i + 1, max, [i | acc]
   end
 
+
+  defp _is_prime? 1 do true end
+  # \/
+  defp _is_prime? number do __is_prime? 2, number end
+  # ~
+  # \/ Last iteration ~ is prime
+  defp __is_prime?(i, number)
+  when i === number do
+    true
+  end
+  # \/ Is divisible by something else than 1 and itself ~ is not a prime
+  defp __is_prime?(i, number)
+  when rem(number, i) === 0 do
+    false
+  end
+  # \/ Test next integer
+  defp __is_prime? i, number do
+    __is_prime? i + 1, number
+  end
+
+
+  def prime until do
+    lc x inlist span(2, until), _is_prime?(x) do x end
+  end
+
 end

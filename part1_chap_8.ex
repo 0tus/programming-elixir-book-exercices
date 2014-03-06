@@ -52,4 +52,51 @@ defmodule CharList do
     _anagram? tail1, tail2, hash1 + increment1, hash2 + increment2
   end
 
+  # `center` utility functions
+  # --------------------------
+
+  defp max_length list do _max_length list, 0 end
+  # ~ \/
+  defp _max_length [], length do length end
+  # ~ \/
+  defp _max_length [head | tail], length do
+    head_length = String.length(head)
+    max = if head_length > length, do: head_length, else: length
+    _max_length tail, max
+  end
+
+  defp center_word word, max do
+    word_list = word |> String.strip |> String.codepoints
+    word_length = length word_list
+    remaining_spaces = max - word_length
+    return_space = fn _ -> " " end
+    leading_spaces_count = div remaining_spaces, 2
+    leading_spaces = if leading_spaces_count === 0 do
+                       []
+                     else
+                       1..leading_spaces_count |> Enum.map return_space
+                     end
+    ending_spaces_count = max - word_length - length(leading_spaces)
+    ending_spaces = if ending_spaces_count === 0 do
+                      []
+                    else
+                      1..ending_spaces_count |> Enum.map return_space
+                    end
+
+    ["|"] ++ leading_spaces ++ word_list ++ ending_spaces ++ ["|"]
+  end
+
+  defp print_items list do
+    print_word = fn word -> IO.puts word end
+    list |> Enum.each print_word
+  end
+
+  def center list do _center list, max_length(list), [] end
+  # ~ \/
+  defp _center [], _max, acc do acc |> Enum.reverse |> print_items end
+  # ~ \/
+  defp _center [head | tail], max, acc do
+    _center tail, max, [center_word(head, max) | acc]
+  end
+
 end

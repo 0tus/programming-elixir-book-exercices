@@ -71,17 +71,17 @@ defmodule CharList do
     remaining_spaces = max - word_length
     return_space = fn _ -> " " end
     leading_spaces_count = div remaining_spaces, 2
-    leading_spaces = if leading_spaces_count === 0 do
-                       []
-                     else
-                       1..leading_spaces_count |> Enum.map return_space
-                     end
+    leading_spaces =
+      cond do
+        leading_spaces_count === 0 -> []
+        true -> 1..leading_spaces_count |> Enum.map return_space
+      end
     ending_spaces_count = max - word_length - length(leading_spaces)
-    ending_spaces = if ending_spaces_count === 0 do
-                      []
-                    else
-                      1..ending_spaces_count |> Enum.map return_space
-                    end
+    ending_spaces =
+      cond do
+        ending_spaces_count === 0 -> []
+        true -> 1..ending_spaces_count |> Enum.map return_space
+      end
 
     ["|"] ++ leading_spaces ++ word_list ++ ending_spaces ++ ["|"]
   end

@@ -57,3 +57,17 @@ defmodule Link do
     end
   end
 end
+
+defmodule Monitor do
+  import Process, only: [spawn_monitor: 3]
+
+  def monitor do
+    spawn_monitor Link, :print_dam, []
+
+    receive do
+      msg -> "MESSAGE: #{inspect msg}"
+    after 1000 ->
+      IO.puts "Nothing happened"
+    end
+  end
+end

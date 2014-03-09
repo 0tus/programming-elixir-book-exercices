@@ -71,3 +71,22 @@ defmodule Monitor do
     end
   end
 end
+
+defmodule SpawnAndSleep do
+  import :timer, only: [sleep: 1]
+
+  def _child_process pid do
+    send pid, "plop"
+    send pid, "plip"
+    exit :child_process
+  end
+
+  def spawn_link_example do
+    spawn_link SpawnAndSleep, :_child_process, [self]
+    sleep 500
+
+    receive do
+      msg -> "MESSAGE: #{inspect msg}"
+    end
+  end
+end

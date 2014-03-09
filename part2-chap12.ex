@@ -81,8 +81,15 @@ defmodule SpawnAndSleep do
     exit :child_process
   end
 
+  def _child_process_with_exception pid do
+    send pid, "plop"
+    send pid, "plip"
+    raise "Child Exception"
+  end
+
   def spawn_link_example do
-    spawn_link SpawnAndSleep, :_child_process, [self]
+    # spawn_link SpawnAndSleep, :_child_process, [self]
+    spawn_link SpawnAndSleep, :_child_process_with_exception, [self]
     sleep 500
 
     receive do

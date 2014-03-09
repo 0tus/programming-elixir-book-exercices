@@ -38,3 +38,22 @@ defmodule Spawn do
     spawn Spawn, :send_message, ["Plop", callback2_pid]
   end
 end
+
+defmodule Link do
+  def print_dam do
+    :timer.sleep 400
+    IO.puts "Dam"
+    :timer.sleep 400
+    exit :plip_plop
+  end
+
+  def link do
+    spawn_link Link, :print_dam, []
+
+    receive do
+      msg -> "MESSAGE: #{inspect msg}"
+    after 1000 ->
+      IO.puts "Nothing happened"
+    end
+  end
+end

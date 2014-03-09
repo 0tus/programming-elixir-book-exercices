@@ -73,6 +73,7 @@ defmodule Monitor do
 end
 
 defmodule SpawnAndSleep do
+  import Process, only: [spawn_monitor: 3]
   import :timer, only: [sleep: 1]
 
   def _child_process pid do
@@ -90,6 +91,16 @@ defmodule SpawnAndSleep do
   def spawn_link_example do
     # spawn_link SpawnAndSleep, :_child_process, [self]
     spawn_link SpawnAndSleep, :_child_process_with_exception, [self]
+    sleep 500
+
+    receive do
+      msg -> "MESSAGE: #{inspect msg}"
+    end
+  end
+
+  def spawn_monitor_example do
+    spawn_monitor SpawnAndSleep, :_child_process, [self]
+    # spawn_monitor SpawnAndSleep, :_child_process_with_exception, [self]
     sleep 500
 
     receive do
